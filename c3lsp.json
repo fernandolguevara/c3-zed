@@ -1,0 +1,11 @@
+{
+    "C3": {
+        "version": "0.7.7",
+        "path": "c3c",       
+        "stdlib-path": "E:/scoop/apps/c3/current/lib/std/"
+    },
+    "Diagnostics": {
+        "enabled": true,
+        "delay": 2000
+    }
+}

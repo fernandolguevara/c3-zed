@@ -5,6 +5,7 @@
 ## What's new?
 * Update the tree-siiter of c3
 * Update the zed-api 
+* Automatically download c3lsp from [perrymason/c3-lsp](https://github.com/pherrymason/c3-lsp)
 
 ## Installation:
 1. Open Zed's command palette `Ctrl+Shift+P` and select `extensions`
@@ -21,3 +22,4 @@
 
 > [!WARNING]
 > This plugin is a WIP and may not work as expected.
+> This plugin hasn't been fully tested on Mac and Linux

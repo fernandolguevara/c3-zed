@@ -1,5 +1,6 @@
 module main;
 import std::io;
+import std::core::mem::allocator;
 
 interface Object
 {
@@ -17,7 +18,7 @@ fn String Person.as_str(Person* self) @dynamic
 {
     DString str;
     str.appendf("%s %s (age %d)", self.first, self.last, self.age);
-    return str.copy_str();
+    return str.copy_str(tmem);
 }
 
 <*
