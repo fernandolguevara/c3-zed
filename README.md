@@ -9,7 +9,7 @@
 
 ## Installation:
 1. Open Zed's command palette `Ctrl+Shift+P` and select `extensions`
-2. Search for `C3` and click on `Install`
+2. Search for `c3-ex` and click on `Install`
 
 ## Manual Installation:
 1. `git clone https://github.com/handsomelittledong/c3-zed`

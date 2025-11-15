@@ -43,9 +43,9 @@ impl zed::Extension for C3Extension {
         }
 
         let path = match current_platform() {
-            (Os::Windows, Architecture::X8664) => "server/bin/release/c3lsp.exe",
-            (Os::Mac, Architecture::Aarch64) => "server/bin/release/c3lsp",
-            (Os::Linux, Architecture::X8664) => "server/bin/release/c3lsp",
+            (Os::Windows, Architecture::X8664) => "c3lsp/server/bin/release/c3lsp.exe",
+            (Os::Mac, Architecture::Aarch64) => "c3lsp/server/bin/release/c3lsp",
+            (Os::Linux, Architecture::X8664) => "c3lsp/server/bin/release/c3lsp",
             _ => "no available lsp!",
         };
 
