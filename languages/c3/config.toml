@@ -1,6 +1,6 @@
 name = "C3"
 grammar = "c3"
-path_suffixes = ["c3", "c3i"]
+path_suffixes = ["c3", "c3i", "c3t"]
 autoclose_before = ";:.,=}])>"
 line_comments = ["// "]
 brackets = [

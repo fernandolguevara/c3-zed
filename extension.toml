@@ -1,15 +1,19 @@
-id = "c3-ex"
-name = "c3-ex"
-version = "0.0.4"
+id = "c3"
+name = "C3"
+version = "0.0.3"
 schema_version = 1
-authors = ["DONG <dongrunyu2023@outlook.com>"]
+authors = ["Aiden Olsen <olsenaiden33@gmail.com>"]
 description = "This extension bring basic c3 language support to zed. NOTE: This extension is still a WIP!"
-repository = "https://github.com/handsomelittledong/c3-zed"
+repository = "https://github.com/AineeJames/c3-zed"
 
 [language_servers.c3]
 name = "c3"
 language = "C3"
 
 [grammars.c3]
-repository = "https://github.com/c3lang/tree-sitter-c3"
-rev = "3bcb189c85a15d5e47a12947fbb25cd6604025f5"
+repository = "https://github.com/fernandolguevara/tree-sitter-c3"
+rev = "next"
+
+# for test
+# repository = "file:///Users/f00lg/github/c3/tree-sitter-c3"
+# rev="next"

@@ -1,11 +1,11 @@
 {
-    "C3": {
-        "version": "0.7.7",
-        "path": "c3c",       
-        "stdlib-path": "E:/scoop/apps/c3/current/lib/std/"
-    },
-    "Diagnostics": {
-        "enabled": true,
-        "delay": 2000
-    }
+  "C3": {
+    "version": "0.7.10",
+    "path": "c3c",
+    "stdlib-path": "/Users/f00lg/github/c3/c3c/lib/std"
+  },
+  "Diagnostics": {
+    "enabled": true,
+    "delay": 2000
+  }
 }

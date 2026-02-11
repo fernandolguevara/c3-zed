@@ -3,4 +3,7 @@ grammars/
 extension.wasm
 Cargo.lock
 main
-main.dSYM/
+*.dSYM/
+coverage
+test.highlights.txt
+test.tree.txt

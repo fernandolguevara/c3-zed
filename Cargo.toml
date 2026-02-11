@@ -9,3 +9,8 @@ crate-type = ["cdylib"]
 
 [dependencies]
 zed_extension_api = "0.7.0"
+
+# for test
+# [dev-dependencies]
+# tree-sitter = "0.26.3"
+# tree-sitter-c3 = { path = "../tree-sitter-c3" }
