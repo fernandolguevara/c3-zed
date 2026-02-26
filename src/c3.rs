@@ -1,7 +1,7 @@
 use std::{
     fs::{self, File},
     io::{ErrorKind, Read},
-    path::Path,
+    path::{Path, PathBuf},
 };
 
 use zed_extension_api::{
@@ -26,33 +26,54 @@ impl C3Extension {
         }
     }
 
+    fn parse_lsp_path_from_config(content: &str) -> Option<String> {
+        let json: zed::serde_json::Value = zed::serde_json::from_str(content).ok()?;
+
+        let path = json
+            .get("lsp")
+            .and_then(|lsp| lsp.get("path"))
+            .and_then(zed::serde_json::Value::as_str)
+            .or_else(|| {
+                json.get("Lsp")
+                    .and_then(|lsp| lsp.get("path"))
+                    .and_then(zed::serde_json::Value::as_str)
+            })?;
+
+        let trimmed = path.trim();
+        if trimmed.is_empty() {
+            return None;
+        }
+
+        Some(trimmed.to_string())
+    }
+
     fn path_from_c3lsp_json(worktree: &zed::Worktree) -> Option<String> {
-        for config_file in ["c3lsp.json", "cs3lsp.json"] {
-            let content = match worktree.read_text_file(config_file) {
-                Ok(content) => content,
-                Err(_) => continue,
-            };
+        let mut current = PathBuf::from(worktree.root_path());
 
-            let json: zed::serde_json::Value = match zed::serde_json::from_str(&content) {
-                Ok(json) => json,
-                Err(_) => continue,
-            };
+        loop {
+            for config_file in ["c3lsp.json", "cs3lsp.json"] {
+                let config_path = current.join(config_file);
+                let content = match fs::read_to_string(&config_path) {
+                    Ok(content) => content,
+                    Err(_) => continue,
+                };
 
-            let path = json
-                .get("lsp")
-                .and_then(|lsp| lsp.get("path"))
-                .and_then(zed::serde_json::Value::as_str)
-                .or_else(|| {
-                    json.get("Lsp")
-                        .and_then(|lsp| lsp.get("path"))
-                        .and_then(zed::serde_json::Value::as_str)
-                });
+                let path = match Self::parse_lsp_path_from_config(&content) {
+                    Some(path) => path,
+                    None => continue,
+                };
 
-            if let Some(path) = path {
-                let trimmed = path.trim();
-                if !trimmed.is_empty() {
-                    return Some(trimmed.to_string());
+                let path_ref = Path::new(&path);
+                if path_ref.is_absolute() {
+                    return Some(path);
                 }
+
+                let resolved = current.join(path_ref);
+                return Some(resolved.to_string_lossy().to_string());
+            }
+
+            if !current.pop() {
+                break;
             }
         }
 
