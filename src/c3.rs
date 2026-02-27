@@ -1,6 +1,6 @@
 use std::{
     fs::{self, File},
-    io::{ErrorKind, Read},
+    io::ErrorKind,
     path::{Path, PathBuf},
 };
 
@@ -135,32 +135,35 @@ impl zed::Extension for C3Extension {
             };
             (resolved_path, LspPathSource::Configured)
         } else {
-            if let Ok(release) = latest_github_release(
-                "fernandolguevara/c3-lsp",
-                GithubReleaseOptions {
-                    pre_release: false,
-                    require_assets: false,
-                },
-            ) {
-                let mut file = match File::open("lsp_ver") {
-                    Ok(file_handle) => file_handle,
-                    Err(e) => match e.kind() {
-                        ErrorKind::NotFound => File::create("lsp_ver").unwrap(),
-                        _ => return Err("Failed load file".to_string()),
+            let bundled_path = Self::default_lsp_path().to_string();
+            let bundled_exists = Path::new(&bundled_path).exists();
+
+            if !bundled_exists {
+                if let Ok(release) = latest_github_release(
+                    "fernandolguevara/c3-lsp",
+                    GithubReleaseOptions {
+                        pre_release: false,
+                        require_assets: false,
                     },
-                };
-                let mut content = String::new();
+                ) {
+                    match File::open("lsp_ver") {
+                        Ok(_) => {}
+                        Err(e) => match e.kind() {
+                            ErrorKind::NotFound => {
+                                File::create("lsp_ver")
+                                    .map_err(|_| "Failed load file".to_string())?;
+                            }
+                            _ => return Err("Failed load file".to_string()),
+                        },
+                    }
 
-                file.read_to_string(&mut content).unwrap_or_default();
-
-                if content != release.version {
                     fs::write("lsp_ver", release.version.as_bytes())
                         .map_err(|_| "Failed to write file".to_string())?;
                     Self::download_lsp(&release);
                 }
             }
 
-            (Self::default_lsp_path().to_string(), LspPathSource::Bundled)
+            (bundled_path, LspPathSource::Bundled)
         };
 
         if matches!(source, LspPathSource::Bundled) {
