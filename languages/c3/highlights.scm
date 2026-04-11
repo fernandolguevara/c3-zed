@@ -85,6 +85,7 @@
   "attrdef"
   "catch"
   "defer"
+  "lengthof"
   "try"
   "var"
 ] @keyword
@@ -92,7 +93,6 @@
 [
   "$alignof"
   "$assert"
-  "$assignable"
   "$case"
   "$default"
   "$defined"
@@ -104,7 +104,6 @@
   "$endif"
   "$endswitch"
   "$eval"
-  "$evaltype"
   "$error"
   "$exec"
   "$extnameof"
@@ -113,7 +112,6 @@
   "$foreach"
   "$if"
   "$include"
-  "$is_const"
   "$kindof"
   "$nameof"
   "$offsetof"
@@ -293,10 +291,10 @@
   (access_ident
     (ident) @variable.builtin
     (#any-of? @variable.builtin
-      "alignof" "associated" "elements" "extnameof" "from_ordinal" "get" "inf" "is_eq" "is_ordered"
-      "is_substruct" "len" "lookup" "lookup_field" "max" "membersof" "methodsof" "min" "nan" "inner"
-      "kindof" "names" "nameof" "params" "paramsof" "parentof" "qnameof" "returns" "sizeof" "set"
-      "tagof" "has_tagof" "values" "typeid")))
+      "alignof" "extnameof" "from_ordinal" "get" "inf" "is_eq" "is_ordered"
+      "is_substruct" "len" "lookup_field" "max" "membersof" "methodsof" "min" "nan" "inner"
+      "kindof" "names" "nameof" "paramsof" "parentof" "qnameof" "returns" "sizeof" "set"
+      "tagof" "has_tagof" "values")))
 
 (type_access_expr
   field: (access_ident
