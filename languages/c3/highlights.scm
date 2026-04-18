@@ -91,7 +91,6 @@
 ] @keyword
 
 [
-  "$alignof"
   "$assert"
   "$case"
   "$default"
@@ -106,17 +105,12 @@
   "$eval"
   "$error"
   "$exec"
-  "$extnameof"
   "$feature"
   "$for"
   "$foreach"
   "$if"
   "$include"
-  "$kindof"
-  "$nameof"
-  "$offsetof"
-  "$qnameof"
-  "$sizeof"
+  "$reflect"
   "$stringify"
   "$switch"
   "$typefrom"
@@ -425,7 +419,7 @@
 
 (doc_comment) @comment.documentation
 
-(doc_comment_text) @spell
+(doc_comment_text) @comment.documentation @spell
 
 (doc_comment_contract
   name: (_) @attribute)
